@@ -146,16 +146,18 @@ class App extends Component {
     }
     else if(this.state.cardsChosen[0] === this.state.cardsChosen[1]) {
       alert('Match found!')
-
       //Block chain incoming
       this.state.token.methods.mint(
         this.state.account,
         window.location.origin + CARD_ARRAY[optionOneId].img.toString()
       )
+      .send({ from: this.state.account })
+      .on('transactionHash', (hash) => {
         this.setState({
           cardsWon: [...this.state.cardsWon, optionOneId, optionTwoId],
-          //tokenURIs: [...this.state.tokenURIs, CARD_ARRAY[optionOneId].img]
+          tokenURIs: [...this.state.tokenURIs, CARD_ARRAY[optionOneId].img]
         })
+      })
     }
     else {
       alert('Sorry, try again...')
@@ -197,7 +199,7 @@ class App extends Component {
             rel="noopener noreferrer"
           >
           <img src={brain} width="30" height="30" className="d-inline-block align-top" alt="" />
-          &nbsp; Memory Tokens
+          &nbsp; Member Tokens
           </a>
           <ul className="navbar-nav px-3">
             <li className="nav-item text-nowrap d-none d-sm-none d-sm-block">
@@ -209,7 +211,7 @@ class App extends Component {
           <div className="row">
             <main role="main" className="col-lg-12 d-flex text-center">
               <div className="content mr-auto ml-auto">
-                <h1 className="d-4">Edit this file in App.js!</h1>
+                <h1 className="d-4">Member?</h1>
 
                 <div className="grid mb-4" >
 
@@ -233,11 +235,18 @@ class App extends Component {
 
                 <div>
 
-                  {/* Code goes here... */}
+                  <h5>oh, I member:<span id="result">&nbsp;{this.state.tokenURIs.lenght}</span></h5>
 
                   <div className="grid mb-4" >
 
-                    {/* Code goes here... */}
+                    {this.state.tokenURIs.map((tokenURI, key) => {
+                      return(
+                        <img
+                          key={key}
+                          src={tokenURI}
+                        />
+                      )
+                    })}
 
                   </div>
 
