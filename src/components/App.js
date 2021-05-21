@@ -141,7 +141,7 @@ class App extends Component {
     const optionOneId = this.state.cardsChosenId[0]
     const optionTwoId = this.state.cardsChosenId[1]
 
-    if(optionOneId == optionTwoId) {
+    if(optionOneId === optionTwoId) {
       alert('You have clicked the same image!')
     }
     else if(this.state.cardsChosen[0] === this.state.cardsChosen[1]) {
